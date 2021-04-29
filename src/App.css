@@ -16,3 +16,8 @@ body{
   background-color: rgb(244, 244, 250);
 
 }
+svg.recharts-surface tspan {
+	font-size: 10px !important;
+	color: black !important;
+	font-family:  Arial;
+}

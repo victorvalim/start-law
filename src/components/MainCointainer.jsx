@@ -27,7 +27,7 @@ const FlexItem = styled.div`
 display:flex;
 justify-content: space-around;
 align-items: center;
-width:40%;
+width:48%;
 height:100%;
 background-color:rgb(252,252,252);
 border-radius:25px;
@@ -62,7 +62,7 @@ function MainCointainer({ isLoading, solicitation, status }) {
     <MainWrapper>
       <Loader type="Bars" color="#00BFFF" height={500} width={500} timeout={1000} />
       <Footer>
-        <Image src={start4} width={40} />
+        <Image src={start4} width={55} />
         <Button>
           <img src={add} width={40} />
         </Button>
