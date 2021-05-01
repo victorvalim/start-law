@@ -11,17 +11,17 @@ function BarChart({ data }) {
     innerSize: { width, height },
   } = useSelector((state) => state.userReducer);
   return (
-    <ResponsiveContainer height="80%">
+    <ResponsiveContainer height="80%" width="100%">
 
       <Chart
-        barGap={1}
+        barGap={0}
         margin={{
-          top: 0, right: 20, left: 0, bottom: 0,
+          top: 0, right: 30, left: 0, bottom: 0,
         }}
         // width={document.documentElement.clientWidth * 0.43}
         // height={document.documentElement.clientHeight * 0.3}
-        barSize={50}
-        maxBarSize={50}
+        barSize={30}
+        maxBarSize={30}
         data={data}
       >
         <CartesianGrid />

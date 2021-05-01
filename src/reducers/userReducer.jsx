@@ -4,13 +4,18 @@ const INITIAL_STATE = {
   solicitation: [],
   status: [],
   innerSize: {},
+  users: [],
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'RESPONSE':
       return {
-        ...state, dataBase: { ...action.payload },
+        ...state, dataBase: [...action.payload],
+      };
+    case 'USERS':
+      return {
+        ...state, users: [...action.payload],
       };
     case 'INNER_SIZE':
       return {
