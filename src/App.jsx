@@ -23,6 +23,17 @@ function App() {
   const dispatch = useDispatch();
   // const [innerSize, setInnerSize] = useState({ width: window.innerWidth, height: window.innerHeight });
 
+  //   const {
+  //     dataBase,
+  //     isLoading,
+  //     solicitation,
+  //     status,
+  //     innerSize,
+  //     users,
+  //     filtered,
+  //     userAndClient,
+  //     editInfo,
+  // } = useSelector((state) => state.userReducer);
   const {
     isLoading, dataBase, solicitation, status, response, users, filtered, userAndClient,
   } = useSelector((state) => state.userReducer);
