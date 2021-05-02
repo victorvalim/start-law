@@ -5,6 +5,9 @@ const INITIAL_STATE = {
   status: [],
   innerSize: {},
   users: [],
+  filtered: [],
+  userAndClient: [],
+  editInfo: {},
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -12,6 +15,18 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case 'RESPONSE':
       return {
         ...state, dataBase: [...action.payload],
+      };
+    case 'SHOULD_EDIT':
+      return {
+        ...state, editInfo: { ...state.editInfo, ...action.payload },
+      };
+    case 'USER_CLIENT':
+      return {
+        ...state, userAndClient: [...action.payload],
+      };
+    case 'FILTERED':
+      return {
+        ...state, filtered: [...action.payload],
       };
     case 'USERS':
       return {

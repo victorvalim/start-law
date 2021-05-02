@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable eqeqeq */
@@ -6,6 +7,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import allActions from '../actions';
+
 // import allActions from '../actions';
 
 const Background = styled.div`
@@ -37,19 +40,33 @@ background-color:rgb(242,242,245);
 `;
 
 function Modal({
-  showModal, setShowModal, clickHandler, signHandler,
+  showModal, setShowModal, clickHandler, signHandler, setEdit, edit, setEditInfo,
 }) {
-  console.log('MODAL ABRIUUUUU');
+  const dispatch = useDispatch();
+
+  const {
+    editInfo,
+  } = useSelector((state) => state.userReducer);
+  const [newData, setNewData] = useState({});
   const [info, setInfo] = useState({});
   const [sign, setSign] = useState({ nome: '' });
-
   const [type, setType] = useState('cadastro');
   const { users } = useSelector((state) => state.userReducer);
+
   function changeHandler({ target: { value, name } }) {
     setInfo((state) => ({ ...state, [name]: value }));
-    console.log(info);
   }
 
+  function editChangeHandler({ target: { name, value } }) {
+    setNewData((state) => ({ ...state, [name]: value }));
+  }
+  function editing({ target: { name, value } }) {
+    dispatch(allActions.userActions.editInfoATM({ [name]: value }));
+  }
+  function editData(data) {
+    setEdit((state) => !state);
+    dispatch(allActions.userActions.edit(data));
+  }
   return (
     <>
       { showModal ? (
@@ -74,13 +91,13 @@ function Modal({
                   <option name="Concluída" value="Concluída">Concluída</option>
 
                 </select> */}
-                <select onChange={changeHandler} name="categoria">
-                  <option value="" disabled selected hidden>CATEGORIA</option>
+                <input onChange={changeHandler} name="categoria" placeholder="CATEGORIA" />
+                {/* <option value="" disabled selected hidden>CATEGORIA</option>
                   <option value="Contratos">Contratos</option>
                   <option value="Esclarecimentos">Esclarecimentos</option>
                   <option value="Investimentos">Investimentos</option>
 
-                </select>
+                </select> */}
                 <button onClick={() => clickHandler(info)} type="button" disabled={!(Object.values(info).length === 4 && !Object.values(info).includes(''))}>Send</button>
               </form>
             ) : (
@@ -89,6 +106,27 @@ function Modal({
                 <button onClick={() => signHandler(sign)} type="button" disabled={sign.nome === ''}>Send</button>
               </>
             )}
+          </ModalWrapper>
+        </Background>
+      ) : null}
+      {edit ? (
+        <Background>
+          <ModalWrapper>
+            (
+            <form>
+              <input onChange={editing} value={editInfo.titulo} name="titulo" placeholder={editInfo.titulo} />
+              {/* <input onChange={changeHandler} name="atendente" placeholder="ATENDENTE" /> */}
+              <select onChange={editing} name="atendente">
+                <option defaultValue={editInfo.atendente}>{editInfo.atendente}</option>
+                {users.map((element) => <option value={element.nome}>{element.nome}</option>)}
+              </select>
+              <input onChange={editing} value={editInfo.cliente} name="cliente" placeholder="CLIENTE" />
+              <input onChange={editing} value={editInfo.categoria} name="categoria" />
+              <input onChange={editing} value={editInfo.status} name="status" placeholder="STATUS" />
+
+              <button onClick={() => editData(editInfo)} type="button">Send</button>
+            </form>
+            )
           </ModalWrapper>
         </Background>
       ) : null}

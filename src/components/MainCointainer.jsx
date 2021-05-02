@@ -91,11 +91,12 @@ margin:0;
 `;
 
 function MainCointainer({
-  isLoading, solicitation, status, functionModal, showModal, setShowModal, clickHandler, signHandler, dataBase,
+  isLoading, solicitation, status, functionModal, showModal, setShowModal, clickHandler, signHandler, dataBase, inputTable, filtered, userAndClient, setEdit, edit, editInfo, setEditInfo, editHandler, editData, deleteHandler,
 }) {
   return (
     <>
       <Modal showModal={showModal} setShowModal={setShowModal} clickHandler={clickHandler} signHandler={signHandler} />
+      <Modal edit={edit} setEdit={setEdit} setEditInfo={setEditInfo} editInfo={editInfo} />
 
       <MainWrapper>
         {/* <Modal showModal={showModal} setShowModal={setShowModal} /> */}
@@ -116,7 +117,7 @@ function MainCointainer({
           </FlexItem>
         </ChartsWrapper>
         <TableWrapper>
-          <Table dataBase={dataBase} isLoading={isLoading} />
+          <Table dataBase={filtered} isLoading={isLoading} inputTable={inputTable} userAndClient={userAndClient} editHandler={editHandler} editData={editData} deleteHandler={deleteHandler} />
         </TableWrapper>
       </MainWrapper>
     </>
