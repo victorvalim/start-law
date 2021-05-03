@@ -152,7 +152,7 @@ const filter = (payload) => async (dispatch) => {
 
 const edit = (payload) => async (dispatch) => {
     const data = new Date();
-    const formatedDate = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()} (${data.getMinutes()}:${data.getSeconds()})`;
+    const formatedDate = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()} (${data.getHours()}:${data.getMinutes()})`;
     let newestData = await axios.get(`http://localhost:3300/solicitacoes/${payload.id}`);
     newestData = newestData.data;
     newestData = { ...newestData, ...payload, ultimaAtualizacao: formatedDate };
