@@ -19,7 +19,7 @@ function BarChart({ data }) {
       <Chart
         barGap={0}
         margin={{
-          top: 0, right: 30, left: 0, bottom: 0,
+          top: 0, right: 22, left: 0, bottom: 0,
         }}
         // width={document.documentElement.clientWidth * 0.43}
         // height={document.documentElement.clientHeight * 0.3}

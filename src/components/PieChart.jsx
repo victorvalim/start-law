@@ -15,7 +15,7 @@ function PieChart({ data }) {
     innerSize: { width, height },
   } = useSelector((state) => state.userReducer);
   return (
-    <ResponsiveContainer height="100%" width="100%">
+    <ResponsiveContainer height="90%" width="100%">
 
       <Chart>
         <Tooltip />

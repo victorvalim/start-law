@@ -6,6 +6,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { AiOutlineExport, AiOutlineUserAdd, AiOutlineFileAdd } from 'react-icons/ai';
+import { IoExitOutline } from 'react-icons/io5';
 import styled from 'styled-components';
 import allActions from '../actions';
 
@@ -76,11 +78,15 @@ justify-content:center;
 align-items:baseline;
 width:100%;
 margin:auto;
+cursor:pointer;
 button {
 margin:5px;
   border: 1px solid grey;
   border-radius:5px;
 
+}
+svg{
+  magin:0;
 }
 `;
 
@@ -118,8 +124,11 @@ function Modal({
         <Background>
           <ModalWrapper>
             <ButtonWrapper>
-              <button type="button" onClick={() => setType('cadastro')}>CADASTRO</button>
-              <button type="button" onClick={() => setType('usuario')}>USUARIO</button>
+              <AiOutlineFileAdd onClick={() => setType('cadastro')} size={25} />
+              <AiOutlineUserAdd onClick={() => setType('usuario')} size={25} />
+              {/* <button type="button" onClick={() => setType('cadastro')}>CADASTRO</button>
+              <button type="button" onClick={() => setType('usuario')}>USUARIO</button> */}
+              <IoExitOutline onClick={() => setShowModal((state) => !state)} size={25} />
             </ButtonWrapper>
             {type === 'cadastro' ? (
               <form>
@@ -154,7 +163,7 @@ function Modal({
                   type="button"
                   disabled={!(Object.values(info).length === 4 && !Object.values(info).includes('') && info.atendente !== info.cliente)}
                 >
-                  Send
+                  Enviar
                 </button>
               </form>
             ) : (
@@ -169,7 +178,7 @@ function Modal({
                     type="button"
                     disabled={users.map((e) => e.nome).includes(sign.nome) || sign.nome === ''}
                   >
-                    Send
+                    Enviar
                   </button>
                 </ButtonWrapper>
               </>
@@ -203,7 +212,7 @@ function Modal({
               </select>
 
               <input onChange={editing} value={editInfo.categoria} name="categoria" />
-              <button onClick={() => editData(editInfo)} type="button">Send</button>
+              <button onClick={() => editData(editInfo)} type="button">Enviar</button>
             </form>
 
           </ModalWrapper>
