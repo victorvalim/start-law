@@ -20,6 +20,8 @@ Clone down this repository. You will need `node` and `npm` installed globally on
 
 Installation:
 
+`Before anything you should check JSON-server and run it on port 3300.`
+
 `npm install`  
  
 To Start Server:
@@ -30,4 +32,4 @@ To Visit App:
 
 `localhost:3000/` 
 
-For an overview demo, [CHECK](https://victorvalim.github.io/start-law/)
+For an overview demo [CHECK](https://victorvalim.github.io/start-law/)
