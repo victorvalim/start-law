@@ -86,23 +86,29 @@ const editInfoATM = (payload) => {
 const atualization = (payload) => async (dispatch) => {
   const { data } = await axios.get('http://localhost:3300/solicitacoes');
   const user = await axios.get('http://localhost:3300/usuarios');
+  console.log(user.data)
+  // const uniqueUsers = user.data.filter((element, index, argument) => argument.indexOf(element.nome) === index);
+  // console.log(uniqueUsers)
   const saver = data.map((element) => (element.categoria === null || !(solicitacioess.includes(element.categoria)) ? 'Outros' : element.categoria))
   const saver2 = solicitacioess2.map((element) => ({ name: element, value: (saver.filter((e) => e === element).length) }))
   const statusData = data.map((element) => ({ name: element.status, value: 1 }))
   const teste = statusDasSolicitacoes.map((element) => ({ ...element, value: statusData.filter((el) => el.name == element.name).length }))
   const userAndClients = data.map((element) => element.cliente).concat((user.data.map((element) => element.nome))).filter((element, index, argument) => argument.indexOf(element) === index);
+  console.log(userAndClients)
   dispatch(solicitation(saver2));
   dispatch(status(teste));
   dispatch(users(user.data));
   dispatch(userAndClient(userAndClients));
   }
   const postAPI = (payload) => async (dispatch) => {
+    const data = new Date();
+    const formatedDate = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`;
     const newSolicitation = {
-   status: 'Abertura', titulo: payload.titulo, atendente: payload.atendente, cliente: payload.cliente, categoria: payload.categoria,
+   status: 'Abertura', titulo: payload.titulo, atendente: payload.atendente, cliente: payload.cliente, categoria: payload.categoria, dataInicial: formatedDate,
   }
     await axios.post('http://localhost:3300/solicitacoes', { ...newSolicitation });
     dispatch(atualization());
-
+console.log(newSolicitation);
   //   const newSolicitation = {
   //  status: 'Abertura', titulo: payload.titulo, atendente: payload.atendente, cliente: payload.cliente, categoria: payload.categoria,
   // }
@@ -143,7 +149,7 @@ const postUser = (payload) => async (dispatch) => {
   }
 const fetchAPI = (payload) => async (dispatch) => {
   dispatch(atualization());
-    if (payload) dispatch(loader);
+  setTimeout(() => dispatch(loader()), 3000)
 
   // const { data } = await axios.get('http://localhost:3300/solicitacoes');
   // const user = await axios.get('http://localhost:3300/usuarios');
@@ -182,9 +188,12 @@ const fetchAPI = (payload) => async (dispatch) => {
     }
 
     const edit = (payload) => async (dispatch) => {
+      const data = new Date();
+      const formatedDate = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()} (${data.getMinutes()}:${data.getSeconds()})`;
     let newestData = await axios.get(`http://localhost:3300/solicitacoes/${payload.id}`);
     newestData = newestData.data;
-    newestData = { ...newestData, ...payload };
+    newestData = { ...newestData, ...payload, ultimaAtualizacao: formatedDate };
+    console.log(newestData);
     await axios.put(`http://localhost:3300/solicitacoes/${payload.id}`, {
         ...newestData,
     })

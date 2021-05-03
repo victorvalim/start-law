@@ -25,6 +25,7 @@ const ChartsWrapper = styled.div`
 display:flex;
 flex-wrap: nowrap;
 justify-content:space-between;
+align-items: center;
 height:33vh;
 `;
 const FlexItem = styled.div`
@@ -60,15 +61,19 @@ cursor:pointer;
 const Image = styled.img`
 margin:0;
 border:none;
+border-radius: 50px;
 `;
 const TableWrapper = styled.div`
 display:flex;
+white-space: wrap;
+// overflow-x:auto;
 height:50%;
 max-height:50%;
 overflow-y: scroll;
 width:100%;
 max-width:100%;
 margin:0;
+
   table {
     display: table;
     border: 3px solid rgb(233, 236, 248);
@@ -76,14 +81,26 @@ margin:0;
     max-width:100%;
     border-radius:40px;
     overflow:hidden
-    height:30%;
-    // border-collapse: separate;
+    height:50%;
+    // border-collapse: collapse;
     border-spacing: 20px;
     input {
-        // background: transparent;
-        // border: none;
+      // margin-top:-100px;
+        background: transparent;
+        border: none;
+
+    }
+    th{
+      font-weight:400;
+      opacity:0.6;
+
     }
 
+    svg{
+      margin:0;
+      padding:0;
+    }
+    
   }
 
 
@@ -91,35 +108,39 @@ margin:0;
 `;
 
 function MainCointainer({
-  isLoading, solicitation, status, functionModal, showModal, setShowModal, clickHandler, signHandler, dataBase, inputTable, filtered, userAndClient, setEdit, edit, editInfo, setEditInfo, editHandler, editData, deleteHandler,
+  isLoading, solicitation, status, functionModal, innerSize, showModal, setShowModal, clickHandler, signHandler, dataBase, inputTable, filtered, userAndClient, setEdit, edit, editInfo, setEditInfo, editHandler, editData, deleteHandler,
 }) {
   return (
     <>
-      <Modal showModal={showModal} setShowModal={setShowModal} clickHandler={clickHandler} signHandler={signHandler} />
-      <Modal edit={edit} setEdit={setEdit} setEditInfo={setEditInfo} editInfo={editInfo} />
+      {isLoading ? (<Loader type="Bars" color="#00BFFF" height={window.innerHeight} width={window.innerWidth} />)
+        : (
+          <>
+            <Modal showModal={showModal} setShowModal={setShowModal} clickHandler={clickHandler} signHandler={signHandler} />
+            <Modal edit={edit} setEdit={setEdit} setEditInfo={setEditInfo} editInfo={editInfo} />
 
-      <MainWrapper>
-        {/* <Modal showModal={showModal} setShowModal={setShowModal} /> */}
+            <MainWrapper>
+              {/* <Modal showModal={showModal} setShowModal={setShowModal} /> */}
 
-        <Loader type="Bars" color="#00BFFF" height={500} width={500} timeout={1000} />
-        <Footer>
-          <Image src={start4} width={55} />
-          <Button onClick={functionModal}>
-            <img src={add} width={40} />
-          </Button>
-        </Footer>
-        <ChartsWrapper>
-          <FlexItem>
-            <BarChart data={status} />
-          </FlexItem>
-          <FlexItem>
-            <PieChart data={solicitation} />
-          </FlexItem>
-        </ChartsWrapper>
-        <TableWrapper>
-          <Table dataBase={filtered} isLoading={isLoading} inputTable={inputTable} userAndClient={userAndClient} editHandler={editHandler} editData={editData} deleteHandler={deleteHandler} />
-        </TableWrapper>
-      </MainWrapper>
+              <Footer>
+                <Image src={start4} width={55} />
+                <Button onClick={functionModal}>
+                  <img src={add} width={40} />
+                </Button>
+              </Footer>
+              <ChartsWrapper>
+                <FlexItem>
+                  <BarChart data={status} />
+                </FlexItem>
+                <FlexItem>
+                  <PieChart data={solicitation} />
+                </FlexItem>
+              </ChartsWrapper>
+              <TableWrapper>
+                <Table dataBase={filtered} isLoading={isLoading} inputTable={inputTable} userAndClient={userAndClient} editHandler={editHandler} editData={editData} deleteHandler={deleteHandler} />
+              </TableWrapper>
+            </MainWrapper>
+          </>
+        )}
     </>
   );
 }

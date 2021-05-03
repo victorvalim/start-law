@@ -21,22 +21,67 @@ flex-direction:column;
 justify-content:flex-start;
 align-items:center;
 // background-color:black;
-
+margin:0;
 z-index:10;
 
 `;
 const ModalWrapper = styled.div`
+// display:flex;
+// flex-wrap:wrap;
+// align-items:center;
+// justify-content:space-around;
+
+form{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+align-items:flex-end;
+}
 margin:0;
-width:60%;
-height:80%;
+width:70%;
+height:20%;
 // box-shadow: rgba(0,0,0, 0.8);
 // background:#fff;
 // position:relative;
 z-index:20000000;
 border-radius:40px;
 // opacity:0.1;
-background-color:rgb(242,242,245);
+// background-color:rgb(242,242,245);
+// background-color:rgb(231,232,238);
+// background-color:#9a8c98;
 
+button {
+  border: 1px solid grey;
+  border-radius:5px;
+
+}
+input {
+  margin
+  box-sizing: border-box;
+  border: 1px inset grey;
+  border-radius:5px;
+  padding:2px;
+}
+select {
+  padding:2px;
+
+  box-sizing: border-box;
+  border: 1px inset grey;
+  border-radius:5px;
+}
+`;
+const ButtonWrapper = styled.div`
+display:flex;
+justify-content:center;
+align-items:baseline;
+width:100%;
+margin:auto;
+button {
+margin:5px;
+  border: 1px solid grey;
+  border-radius:5px;
+
+}
 `;
 
 function Modal({
@@ -72,16 +117,15 @@ function Modal({
       { showModal ? (
         <Background>
           <ModalWrapper>
-            <span onClick={() => setType('cadastro')}>CADASTRO</span>
-            <span onClick={() => setType('usuario')}>USUARIO</span>
+            <ButtonWrapper>
+              <button type="button" onClick={() => setType('cadastro')}>CADASTRO</button>
+              <button type="button" onClick={() => setType('usuario')}>USUARIO</button>
+            </ButtonWrapper>
             {type === 'cadastro' ? (
               <form>
                 <input onChange={changeHandler} name="titulo" placeholder="TÍTULO" />
                 {/* <input onChange={changeHandler} name="atendente" placeholder="ATENDENTE" /> */}
-                <select onChange={changeHandler} name="atendente">
-                  <option value="" disabled defaultValue="" hidden>Atendente</option>
-                  {users.map((element) => <option value={element.nome}>{element.nome}</option>)}
-                </select>
+
                 <input onChange={changeHandler} name="cliente" placeholder="CLIENTE" />
                 {/* <select onChange={changeHandler} name="status">
                   <option value="" disabled selected hidden>STATUS</option>
@@ -98,12 +142,36 @@ function Modal({
                   <option value="Investimentos">Investimentos</option>
 
                 </select> */}
-                <button onClick={() => clickHandler(info)} type="button" disabled={!(Object.values(info).length === 4 && !Object.values(info).includes(''))}>Send</button>
+                <select onChange={changeHandler} name="atendente">
+                  <option value="" disabled defaultValue="" hidden>Atendente</option>
+                  {users.map((element) => <option value={element.nome}>{element.nome}</option>)}
+                </select>
+                <button
+                  onClick={() => {
+                    setInfo({});
+                    clickHandler(info);
+                  }}
+                  type="button"
+                  disabled={!(Object.values(info).length === 4 && !Object.values(info).includes(''))}
+                >
+                  Send
+                </button>
               </form>
             ) : (
               <>
-                <input onChange={(e) => setSign({ [e.target.name]: e.target.value })} name="nome" placeholder="NOME" />
-                <button onClick={() => signHandler(sign)} type="button" disabled={sign.nome === ''}>Send</button>
+                <ButtonWrapper>
+                  <input onChange={(e) => setSign({ [e.target.name]: e.target.value })} name="nome" placeholder="NOME" />
+                  <button
+                    onClick={() => {
+                      setSign({ nome: '' });
+                      signHandler(sign);
+                    }}
+                    type="button"
+                    disabled={sign.nome === ''}
+                  >
+                    Send
+                  </button>
+                </ButtonWrapper>
               </>
             )}
           </ModalWrapper>
@@ -112,21 +180,32 @@ function Modal({
       {edit ? (
         <Background>
           <ModalWrapper>
-            (
+
             <form>
               <input onChange={editing} value={editInfo.titulo} name="titulo" placeholder={editInfo.titulo} />
               {/* <input onChange={changeHandler} name="atendente" placeholder="ATENDENTE" /> */}
               <select onChange={editing} name="atendente">
-                <option defaultValue={editInfo.atendente}>{editInfo.atendente}</option>
+                <option value="" disabled selected hidden>Atendente</option>
+
+                {/* <option defaultValue={editInfo.atendente}>{editInfo.atendente}</option> */}
                 {users.map((element) => <option value={element.nome}>{element.nome}</option>)}
               </select>
               <input onChange={editing} value={editInfo.cliente} name="cliente" placeholder="CLIENTE" />
-              <input onChange={editing} value={editInfo.categoria} name="categoria" />
-              <input onChange={editing} value={editInfo.status} name="status" placeholder="STATUS" />
+              {/* <input onChange={editing} value={editInfo.status} name="status" placeholder="STATUS" /> */}
+              <select onChange={editing} name="status">
+                <option value="" disabled selected hidden>Status</option>
+                <option name="Abertura" value="Abertura">Abertura</option>
+                <option name="Análise Inicial" value="Análise Inicial">Análise Inicial</option>
+                <option name="Relatório Inicial" value="Relatório Inicial">Relatório Inicial</option>
+                <option name="Relatório Final" value="Relatório Final">Relatório Final</option>
+                <option name="Concluída" value="Concluída">Concluída</option>
 
+              </select>
+
+              <input onChange={editing} value={editInfo.categoria} name="categoria" />
               <button onClick={() => editData(editInfo)} type="button">Send</button>
             </form>
-            )
+
           </ModalWrapper>
         </Background>
       ) : null}
