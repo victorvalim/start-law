@@ -2,7 +2,7 @@
 
  
 
-An application used to filter and view data from a database as a admin user, based on user preference, built with React, Redux, Styled Components, Recharts and CSS.
+An application used to filter and view data from a database as an admin user, based on user preference, built with React, Redux, Styled Components, Recharts and CSS.
 
 ## Project Status
 
