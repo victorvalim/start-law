@@ -11,52 +11,42 @@ import { IoExitOutline } from 'react-icons/io5';
 import styled from 'styled-components';
 import allActions from '../actions';
 
-// import allActions from '../actions';
-
 const Background = styled.div`
 width: 100%;
 height: 100%;
-// background: rgba(0,0,0,0);
 position:fixed;
 display:flex;
 flex-direction:column;
 justify-content:flex-start;
 align-items:center;
-// background-color:black;
 margin:0;
 z-index:10;
-
 `;
-const ModalWrapper = styled.div`
-// display:flex;
-// flex-wrap:wrap;
-// align-items:center;
-// justify-content:space-around;
 
+const ModalWrapper = styled.div`
+button {
+    border-radius:5px;
+    opacity:0.4;
+    transition:2s;
+  }
+  button:enabled {
+    color:white;
+    border: 1.5px solid #1a73e8;
+    opacity:0.6;
+    background-color: #1a73e8;
+  }
 form{
   display:flex;
   flex-wrap:wrap;
   justify-content:space-between;
-align-items:flex-end;
+  align-items:flex-end;
 }
 margin:0;
 width:70%;
 height:20%;
-// box-shadow: rgba(0,0,0, 0.8);
-// background:#fff;
-// position:relative;
 z-index:20000000;
 border-radius:40px;
-// opacity:0.1;
-// background-color:rgb(242,242,245);
-// background-color:rgb(231,232,238);
-// background-color:#9a8c98;
 
-button {
-  border: 1px solid grey;
-  border-radius:5px;
-
-}
 input {
   margin
   box-sizing: border-box;
@@ -66,11 +56,11 @@ input {
 }
 select {
   padding:2px;
-
   box-sizing: border-box;
   border: 1px inset grey;
   border-radius:5px;
 }
+
 `;
 const ButtonWrapper = styled.div`
 display:flex;
@@ -79,12 +69,6 @@ align-items:baseline;
 width:100%;
 margin:auto;
 cursor:pointer;
-button {
-margin:5px;
-  border: 1px solid grey;
-  border-radius:5px;
-
-}
 svg{
   magin:0;
 }
@@ -124,37 +108,40 @@ function Modal({
         <Background>
           <ModalWrapper>
             <ButtonWrapper>
-              <AiOutlineFileAdd onClick={() => setType('cadastro')} size={25} />
-              <AiOutlineUserAdd onClick={() => setType('usuario')} size={25} />
-              {/* <button type="button" onClick={() => setType('cadastro')}>CADASTRO</button>
-              <button type="button" onClick={() => setType('usuario')}>USUARIO</button> */}
-              <IoExitOutline onClick={() => setShowModal((state) => !state)} size={25} />
+              <AiOutlineFileAdd
+                onClick={() => {
+                  setInfo({});
+                  setType('cadastro');
+                }}
+                size={25}
+              />
+              <AiOutlineUserAdd
+                onClick={() => {
+                  setSign({ nome: '' });
+                  setType('usuario');
+                }}
+                size={25}
+              />
+              <IoExitOutline
+                onClick={() => {
+                  setSign({ nome: '' });
+                  setInfo({});
+                  setShowModal((state) => !state);
+                }}
+                size={25}
+              />
             </ButtonWrapper>
             {type === 'cadastro' ? (
               <form>
-                <input onChange={changeHandler} name="titulo" placeholder="TÍTULO" />
-                {/* <input onChange={changeHandler} name="atendente" placeholder="ATENDENTE" /> */}
+                <input autoComplete="off" onChange={changeHandler} name="titulo" placeholder="TÍTULO" />
+                <input autoComplete="off" onChange={changeHandler} name="cliente" placeholder="CLIENTE" />
+                <input autoComplete="off" onChange={changeHandler} name="categoria" placeholder="CATEGORIA" />
 
-                <input onChange={changeHandler} name="cliente" placeholder="CLIENTE" />
-                {/* <select onChange={changeHandler} name="status">
-                  <option value="" disabled selected hidden>STATUS</option>
-                  <option name="Abertura" value="Abertura">Abertura</option>
-                  <option name="Análise Inicial" value="Análise Inicial">Análise Inicial</option>
-                  <option name="Relatório Final" value="Relatório Final">Relatório Final</option>
-                  <option name="Concluída" value="Concluída">Concluída</option>
-
-                </select> */}
-                <input onChange={changeHandler} name="categoria" placeholder="CATEGORIA" />
-                {/* <option value="" disabled selected hidden>CATEGORIA</option>
-                  <option value="Contratos">Contratos</option>
-                  <option value="Esclarecimentos">Esclarecimentos</option>
-                  <option value="Investimentos">Investimentos</option>
-
-                </select> */}
                 <select onChange={changeHandler} name="atendente">
-                  <option value="" disabled defaultValue="" hidden>Atendente</option>
+                  <option value="" disabled defaultValue="" selected hidden>Atendente</option>
                   {users.map((element) => <option value={element.nome}>{element.nome}</option>)}
                 </select>
+
                 <button
                   onClick={() => {
                     setInfo({});
@@ -169,7 +156,7 @@ function Modal({
             ) : (
               <>
                 <ButtonWrapper>
-                  <input onChange={(e) => setSign({ [e.target.name]: e.target.value })} name="nome" placeholder="NOME" />
+                  <input autoComplete="off" onChange={(e) => setSign({ [e.target.name]: e.target.value })} name="nome" placeholder="NOME" />
                   <button
                     onClick={() => {
                       setSign({ nome: '' });
@@ -189,18 +176,20 @@ function Modal({
       {edit ? (
         <Background>
           <ModalWrapper>
-
+            <ButtonWrapper>
+              <IoExitOutline onClick={() => setEdit((state) => !state)} size={25} />
+            </ButtonWrapper>
             <form>
-              <input onChange={editing} value={editInfo.titulo} name="titulo" placeholder={editInfo.titulo} />
-              {/* <input onChange={changeHandler} name="atendente" placeholder="ATENDENTE" /> */}
+
+              <input autoComplete="off" onChange={editing} value={editInfo.titulo} name="titulo" placeholder={editInfo.titulo} />
+
               <select onChange={editing} name="atendente">
                 <option value="" disabled selected hidden>Atendente</option>
-
-                {/* <option defaultValue={editInfo.atendente}>{editInfo.atendente}</option> */}
                 {users.map((element) => <option value={element.nome}>{element.nome}</option>)}
               </select>
-              <input onChange={editing} value={editInfo.cliente} name="cliente" placeholder="CLIENTE" />
-              {/* <input onChange={editing} value={editInfo.status} name="status" placeholder="STATUS" /> */}
+
+              <input autoComplete="off" onChange={editing} value={editInfo.cliente} name="cliente" placeholder="CLIENTE" />
+
               <select onChange={editing} name="status">
                 <option value="" disabled selected hidden>Status</option>
                 <option name="Abertura" value="Abertura">Abertura</option>
@@ -208,10 +197,10 @@ function Modal({
                 <option name="Relatório Inicial" value="Relatório Inicial">Relatório Inicial</option>
                 <option name="Relatório Final" value="Relatório Final">Relatório Final</option>
                 <option name="Concluída" value="Concluída">Concluída</option>
-
               </select>
 
-              <input onChange={editing} value={editInfo.categoria} name="categoria" />
+              <input autoComplete="off" onChange={editing} value={editInfo.categoria} name="categoria" />
+
               <button onClick={() => editData(editInfo)} type="button">Enviar</button>
             </form>
 

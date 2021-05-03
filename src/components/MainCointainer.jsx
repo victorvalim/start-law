@@ -17,17 +17,20 @@ width:95vw;
 max-width:95vw;
 height:100vh;
 margin:auto;
-
-// background-color: rgb(244, 244, 250);
-
 `;
+
 const ChartsWrapper = styled.div`
 display:flex;
 flex-wrap: nowrap;
 justify-content:space-between;
 align-items: center;
 height:33vh;
+  svg {
+   margin:0;
+    padding:0;
+  }
 `;
+
 const FlexItem = styled.div`
 display:flex;
 justify-content: space-around;
@@ -46,68 +49,60 @@ flex-wrap: nowrap;
 align-items: center;
 width:100%;
 height:5%;
-// background-color:black;
 padding-top:20px;
-a{
-  margin:0;
-  padding-top:5px;
-}
+  a {
+    margin:0;
+    padding-top:5px;
+  }
 `;
+
 const Button = styled.button`
 color:inherit;
 background:rgb(244, 244, 250);
 border:none;
 width:40px;
 height:40px;
-// background-color:orange;
 cursor:pointer;
 `;
+
 const Image = styled.img`
 margin:0;
 border:none;
 border-radius: 50px;
 `;
+
 const TableWrapper = styled.div`
 display:flex;
 white-space: wrap;
-// overflow-x:auto;
 height:50%;
 max-height:50%;
 overflow-y: scroll;
 width:100%;
 max-width:100%;
 margin:0;
-
   table {
     display: table;
-    border: 3px solid rgb(233, 236, 248);
+    border: 4px solid rgb(233, 236, 248);
     width:100%;
     max-width:100%;
     border-radius:40px;
     overflow:hidden
     height:50%;
-    // border-collapse: collapse;
     border-spacing: 20px;
-    input {
-      // margin-top:-100px;
+      input {
         background: transparent;
         border: none;
 
-    }
-    th{
-      font-weight:400;
-      opacity:0.6;
-
-    }
-
-    svg{
+      }
+      th {
+        font-weight:400;
+       opacity:0.6;
+      }
+    svg {
       margin:0;
       padding:0;
     }
-    
   }
-
-
 }
 `;
 
@@ -123,8 +118,6 @@ function MainCointainer({
             <Modal edit={edit} setEdit={setEdit} setEditInfo={setEditInfo} editInfo={editInfo} />
 
             <MainWrapper>
-              {/* <Modal showModal={showModal} setShowModal={setShowModal} /> */}
-
               <Footer>
                 <a href="https://thestartlaw.com/" target="blank">
                   <Image src={start4} width={53} />

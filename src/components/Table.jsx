@@ -38,7 +38,9 @@ function Table({
                 <option name="Relatório Final" value="Relatório Final">Relatório Final</option>
                 <option name="Concluída" value="Concluída">Concluída</option>
               </select>
+
             </th>
+
             <th align="left">
 
               <select onChange={inputTable} name="categoria">
@@ -48,18 +50,19 @@ function Table({
                 <option value="Investimentos">Investimentos</option>
                 <option value="Outros">Outros</option>
               </select>
+
             </th>
+
             <th colSpan="4" align="left">
 
               <select onChange={inputTable} name="autor">
                 <option value="" selected>Autor/Cliente</option>
                 {userAndClient.map((element) => (
                   <option value={element}>{element}</option>
-
                 ))}
               </select>
             </th>
-            {/* <th>BOTAO</th> */}
+
           </tr>
         </thead>
         {' '}
@@ -85,19 +88,16 @@ function Table({
               <td align="left">{element.id}</td>
               <td align="left">{element.status}</td>
               <td align="left">{element.categoria === null || !(['Contratos', 'Esclarecimentos', 'Investimentos'].includes(element.categoria)) ? 'Outros' : element.categoria}</td>
-              {/* <td>{element.categoria === ('Contratos' || 'Esclarecimentos' || 'Investimentos') || element.categoria !== null &&  ? element.categoria : 'Outros'}</td> */}
               <td align="left">{element.dataInicial}</td>
               <td align="left">{element.ultimaAtualizacao}</td>
-
               <td align="left">{element.atendente}</td>
               <td align="left">
-                {/* <AiOutlineUserDelete /> */}
                 {element.cliente}
                 {' '}
 
               </td>
               <td>
-                <AiOutlineEdit onClick={() => editHandler(element)} style={{ cursor: 'pointer', margin: '3px' }} />
+                <AiOutlineEdit onClick={() => editHandler(element.id)} style={{ cursor: 'pointer', margin: '3px' }} />
                 <AiOutlineDelete onClick={() => deleteHandler(element.id)} style={{ cursor: 'pointer', margin: '3px' }} />
               </td>
 

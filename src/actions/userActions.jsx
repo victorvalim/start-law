@@ -65,113 +65,76 @@ const users = (payload) => {
       payload,
   }
 }
+
 const userAndClient = (payload) => {
   return {
       type: 'USER_CLIENT',
       payload,
   }
 }
+
 const filteredSolicitation = (payload) => {
   return {
       type: 'FILTERED',
       payload,
   }
 }
+
 const editInfoATM = (payload) => {
   return {
       type: 'SHOULD_EDIT',
       payload,
   }
 }
+
+const editInfoData = (payload) => async (dispatch) => {
+const { data } = await axios.get(`http://localhost:3300/solicitacoes/${payload}`)
+dispatch(editInfoATM(data));
+}
+
 const atualization = (payload) => async (dispatch) => {
   const { data } = await axios.get('http://localhost:3300/solicitacoes');
   const user = await axios.get('http://localhost:3300/usuarios');
-  console.log(user.data)
-  // const uniqueUsers = user.data.filter((element, index, argument) => argument.indexOf(element.nome) === index);
-  // console.log(uniqueUsers)
   const saver = data.map((element) => (element.categoria === null || !(solicitacioess.includes(element.categoria)) ? 'Outros' : element.categoria))
-  const saver2 = solicitacioess2.map((element) => ({ name: element, value: (saver.filter((e) => e === element).length) }))
+  const solicitationChartData = solicitacioess2.map((element) => ({ name: element, value: (saver.filter((e) => e === element).length) }))
   const statusData = data.map((element) => ({ name: element.status, value: 1 }))
-  const teste = statusDasSolicitacoes.map((element) => ({ ...element, value: statusData.filter((el) => el.name == element.name).length }))
+  const statusChartData = statusDasSolicitacoes.map((element) => ({ ...element, value: statusData.filter((el) => el.name == element.name).length }))
   const userAndClients = data.map((element) => element.cliente).concat((user.data.map((element) => element.nome))).filter((element, index, argument) => argument.indexOf(element) === index);
-  console.log(userAndClients)
-  dispatch(solicitation(saver2));
-  dispatch(status(teste));
+  dispatch(solicitation(solicitationChartData));
+  dispatch(status(statusChartData));
   dispatch(users(user.data));
   dispatch(userAndClient(userAndClients));
   }
-  const postAPI = (payload) => async (dispatch) => {
-    const data = new Date();
-    const formatedDate = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`;
-    const newSolicitation = {
+
+const postAPI = (payload) => async (dispatch) => {
+  const data = new Date();
+  const formatedDate = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()}`;
+  const newSolicitation = {
    status: 'Abertura', titulo: payload.titulo, atendente: payload.atendente, cliente: payload.cliente, categoria: payload.categoria, dataInicial: formatedDate,
   }
-    await axios.post('http://localhost:3300/solicitacoes', { ...newSolicitation });
+
+  await axios.post('http://localhost:3300/solicitacoes', { ...newSolicitation });
     dispatch(atualization());
-console.log(newSolicitation);
-  //   const newSolicitation = {
-  //  status: 'Abertura', titulo: payload.titulo, atendente: payload.atendente, cliente: payload.cliente, categoria: payload.categoria,
-  // }
-  //   await axios.post('http://localhost:3300/solicitacoes', { ...newSolicitation });
-  //   const { data } = await axios.get('http://localhost:3300/solicitacoes');
-  //   const saver = data.map((element) => (element.categoria === null || !(solicitacioess.includes(element.categoria)) ? 'Outros' : element.categoria))
-  //   const saver2 = solicitacioess2.map((element) => ({ name: element, value: (saver.filter((e) => e === element).length) }))
-  //   const statusData = data.map((element) => ({ name: element.status, value: 1 }))
-  //   const teste = statusDasSolicitacoes.map((element) => ({ ...element, value: statusData.filter((el) => el.name == element.name).length }))
-  //   dispatch(solicitation(saver2));
-  //   dispatch(status(teste));
-  //   dispatch(response(data));
-    }
+  }
+
 const deleteAction = (payload) => async (dispatch) => {
   await axios.delete(`http://localhost:3300/solicitacoes/${payload}`);
   dispatch(atualization());
-  // await axios.delete(`http://localhost:3300/solicitacoes/${payload}`)
-  // const { data } = await axios.get('http://localhost:3300/solicitacoes');
-  // const user = await axios.get('http://localhost:3300/usuarios');
-  // const userAndClients = data.map((element) => element.cliente).concat((user.data.map((element) => element.nome))).filter((element, index, argument) => argument.indexOf(element) === index);
-  // dispatch(users(user.data));
-  // dispatch(response(data));
-  // dispatch(userAndClient(userAndClients));
-  // dispatch(atualization());
   }
+
 const postUser = (payload) => async (dispatch) => {
   await axios.post('http://localhost:3300/usuarios', { ...payload });
   dispatch(atualization());
-
-  // await axios.post('http://localhost:3300/usuarios', { ...payload });
-  // const { data } = await axios.get('http://localhost:3300/solicitacoes');
-  // const user = await axios.get('http://localhost:3300/usuarios');
-  // const userAndClients = data.map((element) => element.cliente).concat((user.data.map((element) => element.nome))).filter((element, index, argument) => argument.indexOf(element) === index);
-  // dispatch(users(user.data));
-  // dispatch(response(data));
-  // dispatch(userAndClient(userAndClients));
-  // dispatch(atualization());
   }
+
 const fetchAPI = (payload) => async (dispatch) => {
   dispatch(atualization());
   setTimeout(() => dispatch(loader()), 3000)
-
-  // const { data } = await axios.get('http://localhost:3300/solicitacoes');
-  // const user = await axios.get('http://localhost:3300/usuarios');
-  // const saver = data.map((element) => (element.categoria === null || !(solicitacioess.includes(element.categoria)) ? 'Outros' : element.categoria))
-  // console.log(saver, data)
-  // const saver2 = solicitacioess2.map((element) => ({ name: element, value: (saver.filter((e) => e === element).length) }))
-  // console.log(saver2);
-  // // const solicitations = data.map((element) => ({ name: element.titulo, value: 1 }))
-  // const statusData = data.map((element) => ({ name: element.status, value: 1 }))
-  // const teste = statusDasSolicitacoes.map((element) => ({ ...element, value: statusData.filter((el) => el.name == element.name).length }))
-  // const userAndClients = data.map((element) => element.cliente).concat((user.data.map((element) => element.nome))).filter((element, index, argument) => argument.indexOf(element) === index);
-  // if (payload) dispatch(loader);
-  // dispatch(solicitation(saver2));
-  // dispatch(status(teste));
-  // dispatch(users(user.data));
-  // dispatch(userAndClient(userAndClients));
-  // dispatch(atualization())
   }
 
-  const filter = (payload) => async (dispatch) => {
+const filter = (payload) => async (dispatch) => {
     const { data } = await axios.get('http://localhost:3300/solicitacoes');
-    let dataWithCategory = data.map((element) => ({ ...element, categoria: (element.categoria === null || !(solicitacioess.includes(element.categoria)) ? 'Outros' : element.categoria) }))
+    let dataWithCategory = data.map((el) => ({ ...el, notFilteredCategory: el.categoria })).map((element) => ({ ...element, categoria: (element.categoria === null || !(solicitacioess.includes(element.categoria)) ? 'Outros' : element.categoria) }))
     dataWithCategory = payload.titulo ? dataWithCategory.filter((element) => element.titulo.toLowerCase().includes(payload.titulo.toLowerCase())) : dataWithCategory
     dataWithCategory = payload.id ? dataWithCategory.filter((element) => element.id === +payload.id) : dataWithCategory;
     dataWithCategory = payload.status ? dataWithCategory.filter((element) => element.status.includes(payload.status)) : dataWithCategory;
@@ -187,36 +150,16 @@ const fetchAPI = (payload) => async (dispatch) => {
     dispatch(users(user.data));
     }
 
-    const edit = (payload) => async (dispatch) => {
-      const data = new Date();
-      const formatedDate = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()} (${data.getMinutes()}:${data.getSeconds()})`;
+const edit = (payload) => async (dispatch) => {
+    const data = new Date();
+    const formatedDate = `${data.getDate()}/${data.getMonth() + 1}/${data.getFullYear()} (${data.getMinutes()}:${data.getSeconds()})`;
     let newestData = await axios.get(`http://localhost:3300/solicitacoes/${payload.id}`);
     newestData = newestData.data;
     newestData = { ...newestData, ...payload, ultimaAtualizacao: formatedDate };
-    console.log(newestData);
     await axios.put(`http://localhost:3300/solicitacoes/${payload.id}`, {
-        ...newestData,
-    })
-      dispatch(atualization());
-
-  //     console.log('ACTION');
-
-  //   console.log(payload);
-  //   let newestData = await axios.get(`http://localhost:3300/solicitacoes/${payload.id}`);
-  //   console.log(newestData);
-  //   newestData = newestData.data;
-  //   newestData = { ...newestData, ...payload };
-  //   console.log(newestData);
-
-  //   await axios.put(`http://localhost:3300/solicitacoes/${payload.id}`, {
-  //       ...newestData,
-  //   })
-  //   const { data } = await axios.get('http://localhost:3300/solicitacoes');
-  // const user = await axios.get('http://localhost:3300/usuarios');
-  // const userAndClients = data.map((element) => element.cliente).concat((user.data.map((element) => element.nome))).filter((element, index, argument) => argument.indexOf(element) === index);
-  // dispatch(users(user.data));
-  // dispatch(response(data));
-  // dispatch(userAndClient(userAndClients));
+      ...newestData,
+  })
+    dispatch(atualization());
       }
 
 export default {
@@ -234,5 +177,6 @@ export default {
   editInfoATM,
   edit,
   deleteAction,
+  editInfoData,
 // eslint-disable-next-line semi
 }

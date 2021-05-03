@@ -3,7 +3,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { useSelector } from 'react-redux';
 import {
   PieChart as Chart, Pie, ResponsiveContainer, Cell, Tooltip, Legend,
 } from 'recharts';
@@ -11,15 +10,15 @@ import {
 const COLORS = ['#8884d8', '#00C49F', '#FFBB28', '#FF8042'];
 
 function PieChart({ data }) {
-  const {
-    innerSize: { width, height },
-  } = useSelector((state) => state.userReducer);
   return (
-    <ResponsiveContainer height="90%" width="100%">
+    <ResponsiveContainer height="90%" width="90%">
 
-      <Chart>
+      <Chart margin={{
+        top: 0, right: 0, left: 0, bottom: 0,
+      }}
+      >
         <Tooltip />
-        <Legend verticalAlign="top" height={30} />
+        <Legend verticalAlign="top" height={50} />
         <Pie data={data} dataKey="value" nameKey="name" fill="#8884d8">
           {
       data.map((entry, index) => (
