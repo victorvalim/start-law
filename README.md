@@ -1,7 +1,6 @@
 ## Project Startlaw-CRUD
 
-
-TweetWorld 
+ 
 
 An application used to filter and visualizate data from a database as a admin user,based on user preference, built with React, Redux, Styled Components, Recharts and CSS.
 
