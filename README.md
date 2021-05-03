@@ -10,6 +10,7 @@ This project is currently in development. Admin can filter data by username and 
 
 Some new functionalities can be added and more data visualization options can be done.
 
+It is not yet setted up for mobile, best resolutions for usage are between HD and FullHD resolution.
   
 <img src="https://i.ibb.co/L00k6n0/Captura-de-Tela-2021-05-03-a-s-13-39-02.png">
 
