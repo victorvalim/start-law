@@ -48,6 +48,10 @@ width:100%;
 height:5%;
 // background-color:black;
 padding-top:20px;
+a{
+  margin:0;
+  padding-top:5px;
+}
 `;
 const Button = styled.button`
 color:inherit;
@@ -122,7 +126,9 @@ function MainCointainer({
               {/* <Modal showModal={showModal} setShowModal={setShowModal} /> */}
 
               <Footer>
-                <Image src={start4} width={55} />
+                <a href="https://thestartlaw.com/" target="blank">
+                  <Image src={start4} width={53} />
+                </a>
                 <Button onClick={functionModal}>
                   <img src={add} width={40} />
                 </Button>

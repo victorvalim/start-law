@@ -8,7 +8,7 @@ import {
   PieChart as Chart, Pie, ResponsiveContainer, Cell, Tooltip, Legend,
 } from 'recharts';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+const COLORS = ['#8884d8', '#00C49F', '#FFBB28', '#FF8042'];
 
 function PieChart({ data }) {
   const {
@@ -19,7 +19,7 @@ function PieChart({ data }) {
 
       <Chart>
         <Tooltip />
-        <Legend verticalAlign="top" height={36} />
+        <Legend verticalAlign="top" height={30} />
         <Pie data={data} dataKey="value" nameKey="name" fill="#8884d8">
           {
       data.map((entry, index) => (

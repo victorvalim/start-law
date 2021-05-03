@@ -7,7 +7,7 @@ import {
   BarChart as Chart, Bar, YAxis, XAxis, CartesianGrid, Legend, ResponsiveContainer, Cell,
 } from 'recharts';
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#800080'];
+const COLORS = ['#8884d8', '#00C49F', '#FFBB28', '#FF8042', '#0088FE'];
 
 function BarChart({ data }) {
   const {

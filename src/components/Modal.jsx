@@ -152,7 +152,7 @@ function Modal({
                     clickHandler(info);
                   }}
                   type="button"
-                  disabled={!(Object.values(info).length === 4 && !Object.values(info).includes(''))}
+                  disabled={!(Object.values(info).length === 4 && !Object.values(info).includes('') && info.atendente !== info.cliente)}
                 >
                   Send
                 </button>
@@ -167,7 +167,7 @@ function Modal({
                       signHandler(sign);
                     }}
                     type="button"
-                    disabled={sign.nome === ''}
+                    disabled={users.map((e) => e.nome).includes(sign.nome) || sign.nome === ''}
                   >
                     Send
                   </button>
