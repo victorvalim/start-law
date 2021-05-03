@@ -2,12 +2,13 @@
 
  
 
-An application used to filter and visualizate data from a database as a admin user,based on user preference, built with React, Redux, Styled Components, Recharts and CSS.
+An application used to filter and view data from a database as a admin user, based on user preference, built with React, Redux, Styled Components, Recharts and CSS.
 
 ## Project Status
+
 This project is currently in development. Admin can filter data by username and other keyword category and see visual data representation.
 
-Some new functionalities can be added and more data visualization modes can be donne.
+Some new functionalities can be added and more data visualization options can be done.
 
   
 <img src="https://i.ibb.co/L00k6n0/Captura-de-Tela-2021-05-03-a-s-13-39-02.png">
